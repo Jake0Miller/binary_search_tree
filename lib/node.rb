@@ -1,5 +1,5 @@
 class Node
-  attr_reader :key, :val, :left, :right
+  attr_accessor :key, :val, :left, :right
 
   def initialize(key, val, left = nil, right = nil)
     @key = key
@@ -28,5 +28,9 @@ class Node
     else
       [{@val => @key}]
     end
+  end
+
+  def <=> (node)
+    @key <=> node.key
   end
 end

@@ -28,4 +28,16 @@ class NodeTest < MiniTest::Test
     assert_equal 16, @node.left.key
     assert_equal 92, @node.right.key
   end
+
+  def test_comparison_operator
+    node_mid = Node.new(15, "middle")
+    node_top = Node.new(20, "top")
+    node_bot = Node.new(10, "bottom")
+
+    assert_equal 0, node_mid <=> node_mid
+    assert_equal -1, node_mid <=> node_top
+    assert_equal -1, node_bot <=> node_mid
+    assert_equal 1, node_top <=> node_mid
+    assert_equal 1, node_mid <=> node_bot
+  end
 end
