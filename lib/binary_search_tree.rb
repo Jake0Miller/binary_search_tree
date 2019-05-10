@@ -131,4 +131,56 @@ class BinarySearchTree
     right_height = cur_node.right ? get_sub_height(cur_node.right) : 0
     1 + [left_height, right_height].max
   end
+
+  def delete(key)
+    return nil if !include?(key)
+    @root = delete_node(@root,key)
+    key
+  end
+
+  def delete_node(cur_node, key)
+    case cur_node.key <=> key
+    when 0
+      cur_node = remove(cur_node)
+    when 1
+      cur_node.left = delete_node(cur_node.left, key)
+    when -1
+      cur_node.right = delete_node(cur_node.right, key)
+    end
+    cur_node
+  end
+
+  def remove(node)
+    if node.left.nil? && node.right.nil?
+      return nil
+    elsif !node.left.nil? && node.right.nil?
+      return node.left
+    elsif node.left.nil? && !node.right.nil?
+      return node.left
+    else
+      return replace_parent(node)
+    end
+  end
+
+  def replace_parent(node)
+    node.key = next_key(node.right)
+    node.val = next_val(node.right)
+    update(node.right)
+    node
+  end
+
+  def next_key(node)
+    return node.key if node.left.nil?
+    next_key(node.left)
+  end
+
+  def next_val(node)
+    return node.val if node.left.nil?
+    next_val(node.left)
+  end
+
+  def update(node)
+    return node.right if node.left.nil?
+    node.left = update(node.left)
+  end
 end

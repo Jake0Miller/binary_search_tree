@@ -40,4 +40,15 @@ class HealthTest < MiniTest::Test
   def test_height
     assert_equal 5, @tree.height
   end
+
+  def test_delete_bad_keys
+    assert_nil @tree.delete(101)
+    assert_nil @tree.delete(30)
+  end
+
+  def test_delete_key
+    assert_equal 38, @tree.delete(38)
+    assert_equal 69, @tree.delete(69)
+    assert_equal 58, @tree.delete(58)
+  end
 end
